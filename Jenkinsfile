@@ -1,16 +1,19 @@
 pipeline {
     agent any
-    
+
     stages {
         stage('Build') {
             steps {
-                sh 'docker build -t OlaUnicamp .'
+                script {
+                    sh 'docker run --rm -v $PWD:/app -w /app maven:3-openjdk-11 mvn compile'
+                }
             }
         }
-        
         stage('Run') {
             steps {
-                sh 'docker run --rm OlaUnicamp'
+                script {
+                    sh 'docker run --rm -v $PWD:/app -w /app maven:3-openjdk-11 java -cp target/classes OlaUnicamp'
+                }
             }
         }
     }
