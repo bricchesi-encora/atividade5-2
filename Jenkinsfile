@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'openjdk:11'
-            args '-v $HOME/.m2:/root/.m2' // Opcional: permite usar cache do Maven
-        }
-    }
+    agent any
 
     stages {
         stage('Checkout') {
